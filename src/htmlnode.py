@@ -37,7 +37,7 @@ class LeafNode(HTMLNode):
 
 
 class ParentNode(HTMLNode):
-    def __init__(self, tag, children: HTMLNode, props=None):
+    def __init__(self, tag, children, props=None):
         self.tag = tag
         self.children = children
         self.props = props
