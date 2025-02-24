@@ -41,7 +41,8 @@ def text_to_children(text):
     text_nodes = text_to_textnodes(text)
     html_nodes = []
     for node in text_nodes:
-        html_nodes.append(text_node_to_html_node(node))
+        html_node = text_node_to_html_node(node)
+        html_nodes.append(html_node)
     return html_nodes
 
 
@@ -123,20 +124,3 @@ def markdown_to_html_node(markdown):
         node = block_to_html_node(block)
         children_lst.append(node)
     return ParentNode("div", children_lst, None)
-        
-
-md = """
-This is **bolded** paragraph
-
-
-
-
-This is another paragraph with *italic* text and `code` here
-This is the same paragraph on a new line
-
-* This is a list
-* with items
-"""
-
-
-markdown_to_html_node(md)

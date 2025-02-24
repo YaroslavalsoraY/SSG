@@ -1,18 +1,23 @@
 import re
 
 def extract_markdown_images(text):
-    alt_texts = re.findall(r"\!\[(.*?)\]", text)
-    img_urls = re.findall(r"\(.*?://.*?\..*?\)", text)
-    result_lst = []
-    for i in range(len(alt_texts)):
-        result_lst.append((alt_texts[i], img_urls[i].replace("(", "").replace(")", "")))
-    return result_lst
+    pattern = r"!\[([^\[\]]*)\]\(([^\(\)]*)\)"
+    matches = re.findall(pattern, text)
+    return matches
 
 
 def extract_markdown_links(text):
-    texts = re.findall(r"\[(.*?)\]", text)
-    urls = re.findall(r"\(.*?://.*?\..*?\)", text)
-    result_lst = []
-    for i in range(len(texts)):
-        result_lst.append((texts[i], urls[i].replace("(", "").replace(")", "")))
-    return result_lst
+    pattern = r"(?<!!)\[([^\[\]]*)\]\(([^\(\)]*)\)"
+    matches = re.findall(pattern, text)
+    return matches
+
+
+def extract_title(markdown: str):
+    if markdown.startswith("# "):
+        if "\n" in markdown:
+            return markdown[2:markdown.index("\n")].strip()
+        else:
+            return markdown[2:].strip()
+    else:
+        raise ValueError("No title")
+
